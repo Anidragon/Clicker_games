@@ -1,1 +1,124 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+public class Game_Main 
+{
+	
+	private int paperClips;
+	private int upgradeLevelClick;
+	private double money;
+	private int gains;
+	private double perClip;
+	private JLabel clips;
+	private JLabel moneyMade;
+	private JButton sell;
+	private JButton clickUpgrade;
+	public Game_Main()
+	{
+		paperClips = 0;
+		perClip = 0.03;
+		upgradeLevelClick = 2; 
+		money = 0; 
+		gains = 1;
+		
+		
+		
+		JFrame mainFrame = new JFrame("PaperClip Factory");
+		mainFrame.setLayout(new BorderLayout());
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		clips = new JLabel("You Have: " + paperClips + " Paper Clips!");
+		clips.setFont(new Font("Arial", Font.BOLD, 40));
+		JButton maker = new JButton("Make Clips");
+		sell = new JButton("sell for " + perClip * paperClips + " ?");
+		moneyMade = new JLabel("You have: " + money + " dollars");
+		clickUpgrade = new JButton("Upgrade your click to make " + upgradeLevelClick + " paper clips ?");
+		
+		maker.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					paperClips += gains;
+					update();
+					
+				}
+		}
+				);
+		
+		
+		sell.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				
+				money += perClip * paperClips;
+				System.out.println(money);
+				paperClips = 0;
+				update();
+				
+			}
+	}
+			);
+		
+			
+		
+		
+		
+		JPanel top = new JPanel();
+		JPanel bottom = new JPanel();
+		JPanel left = new JPanel();
+		JPanel center = new JPanel();
+		JPanel right = new JPanel();
+				
+		mainFrame.add(top, BorderLayout.NORTH);
+		mainFrame.add(bottom, BorderLayout.SOUTH);
+		mainFrame.add(left, BorderLayout.WEST);
+		mainFrame.add(center, BorderLayout.CENTER);
+		mainFrame.add(right, BorderLayout.EAST);
+		
+		//Top
+		top.setLayout(new FlowLayout());
+		
+		top.add(clips, FlowLayout.LEFT);
+		top.add(sell);
+		//left
+	
+		left.setLayout(new BoxLayout(left, BoxLayout.X_AXIS));
+		left.add(maker);
+        left.add(moneyMade);
+		
+        //CENTER
+        center.setLayout(new GridLayout());
+        
+        
+        
+		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		mainFrame.setResizable(false);
+		mainFrame.setVisible(true);
+	}
+	
+		
+		public static void main( String arg[])
+		{
+			
+			new Game_Main();
+		
+		}
+
+
+		public void update()
+		{
+			clips.setText("You Have: " + paperClips + " Paper Clips!");
+			double moola = perClip * paperClips;
+			Math.round(moola);
+			sell.setText("sell for " + moola + " ?");
+			moneyMade.setText("You have: " + money + " dollars");
+		}
+
+	
+}
+
 
